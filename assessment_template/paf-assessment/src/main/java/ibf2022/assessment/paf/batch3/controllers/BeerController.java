@@ -80,7 +80,7 @@ public class BeerController {
 
 		for (int i = 0; i < map.size(); i++) {
 			if (!map.getFirst("amount%d".formatted(i)).isEmpty()
-					&& Integer.parseInt(map.getFirst("amount%d".formatted(i))) != 0) {
+					&& Integer.parseInt(map.getFirst("amount%d".formatted(i))) > 0) {
 				int id = beers.get(i).getBeerId();
 				int amountOrdered = Integer.parseInt(map.getFirst("amount%d".formatted(i)));
 				Order order = new Order(id, amountOrdered);
