@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+    </style>
+    <title>View 2</title>
+  </head>
+  <body>
+    <div data-th-if="${br}">
+      <div data-th-object="${br}">
+        <h1><span data-th-text="*{name}"></span></h1>
+        <a href="/">Back</a>
+        <table>
+          <tr>
+            <td>Description:</td>
+            <td data-th-text="*{description}"></td>
+          </tr>
+          <tr>
+            <td rowspan="2">Address:</td>
+            <td data-th-text="*{address1}"></td>
+          </tr>
+          <tr>
+            <td data-th-text="*{city}"></td>
+          </tr>
+          <tr>
+            <td>Phone:</td>
+            <td data-th-text="*{phone}"></td>
+          </tr>
+          <tr>
+            <td>Website:</td>
+            <td><a data-th-href="*{website}" data-th-text="*{website}"></a></td>
+          </tr>
+        </table>
+
+        <br />
+        <h2>Beers</h2>
+        <form data-th-action="@{/brewery/{breweryId}/order(breweryId=*{breweryId})}" method="post">
+          <button type="submit">Place Order</button>
+          <table>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Quantity</th>
+            </tr>
+            <tr data-th-each="b, bIndex : ${br.getBeers()}">
+              <td data-th-text="${b.getBeerName()}"></td>
+              <td data-th-text="${b.getBeerDescription()}"></td>
+              <td><input type="number" data-th-name="'amount' + ${bIndex.index}" /></td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+    <div data-th-unless="${br}">
+      <h1><span data-th-text="${details}"></span></h1>
+    </div>
+  </body>
+</html>
